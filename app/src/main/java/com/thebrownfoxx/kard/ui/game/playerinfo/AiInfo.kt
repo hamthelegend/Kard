@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.twotone.AccountCircle
 import androidx.compose.material.icons.twotone.Favorite
+import androidx.compose.material.icons.twotone.Memory
 import androidx.compose.material.icons.twotone.Style
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -37,33 +37,17 @@ import com.thebrownfoxx.kard.ui.theme.KardIcons
 import com.thebrownfoxx.kard.ui.theme.KardTheme
 
 @Composable
-fun PlayerInfo(
-    player: Player,
+fun AiInfo(
+    ai: Player,
     modifier: Modifier = Modifier,
 ) {
-    val hpPercent by animateFloatAsState(targetValue = player.hp.toFloat() / Player.MaxHp)
+    val hpPercent by animateFloatAsState(targetValue = ai.hp.toFloat() / Player.MaxHp)
 
     Row(
         modifier = modifier
             .height(64.dp)
             .clip(MaterialTheme.shapes.small),
     ) {
-        Surface(
-            color = MaterialTheme.colorScheme.surface,
-            tonalElevation = Elevation.level(1),
-            shape = MaterialTheme.shapes.extraSmall,
-        ) {
-            Box(modifier = Modifier.aspectRatio(1f)) {
-                Icon(
-                    imageVector = KardIcons.AccountCircle,
-                    contentDescription = stringResource(R.string.player),
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(32.dp),
-                )
-            }
-        }
-        Spacer(modifier = Modifier.width(8.dp))
         Column(modifier = Modifier.weight(1f)) {
             Surface(
                 color = MaterialTheme.colorScheme.surface,
@@ -73,7 +57,7 @@ fun PlayerInfo(
                     .fillMaxWidth()
                     .weight(1f),
             ) {
-                Box(contentAlignment = Alignment.CenterStart) {
+                Box(contentAlignment = Alignment.CenterEnd) {
                     Shape(
                         shape = RectangleShape,
                         color = MaterialTheme.colorScheme.primaryContainer,
@@ -86,21 +70,37 @@ fun PlayerInfo(
                         modifier = Modifier.padding(16.dp),
                     ) {
                         Icon(
-                            imageVector = KardIcons.Favorite,
-                            contentDescription = stringResource(R.string.hp),
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = player.hp.toString())
-                        Spacer(modifier = Modifier.weight(1f))
-                        Text(text = player.cards.size.toString())
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Icon(
                             imageVector = KardIcons.Style,
                             contentDescription = stringResource(R.string.cards),
                             modifier = Modifier.rotate(180f)
                         )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = ai.cards.size.toString())
+                        Spacer(modifier = Modifier.weight(1f))
+                        Text(text = ai.hp.toString())
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(
+                            imageVector = KardIcons.Favorite,
+                            contentDescription = stringResource(R.string.hp),
+                        )
                     }
                 }
+            }
+        }
+        Spacer(modifier = Modifier.width(8.dp))
+        Surface(
+            color = MaterialTheme.colorScheme.surface,
+            tonalElevation = Elevation.level(1),
+            shape = MaterialTheme.shapes.extraSmall,
+        ) {
+            Box(modifier = Modifier.aspectRatio(1f)) {
+                Icon(
+                    imageVector = KardIcons.Memory,
+                    contentDescription = stringResource(R.string.player),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(32.dp),
+                )
             }
         }
     }
@@ -108,10 +108,10 @@ fun PlayerInfo(
 
 @Preview
 @Composable
-fun PlayerInfoPreview() {
+fun AiInfoPreview() {
     KardTheme {
-        PlayerInfo(
-            player = Player(id = 1, name = "Player").damagedBy(30),
+        AiInfo(
+            ai = Player(id = 2, name = "AI").damagedBy(50),
             modifier = Modifier.padding(16.dp),
         )
     }

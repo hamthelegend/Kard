@@ -5,11 +5,13 @@ import com.thebrownfoxx.kard.logic.turn.Card
 import com.thebrownfoxx.kard.logic.turn.TurnType
 
 data class Player(
+    val id: Int,
     val name: String,
     val hp: Int,
     val cards: List<Card>,
 ) {
-    constructor(name: String) : this(
+    constructor(id: Int, name: String) : this(
+        id = id,
         name = name,
         hp = MaxHp,
         cards = Array(5) { Card.draw() }.toList(),
@@ -26,24 +28,28 @@ data class Player(
     val availableTurnTypes = TurnType.values().filter { it.card in cards || it.card == null }
 
     fun damagedBy(amount: Int) = Player(
+        id = id,
         name = name,
         hp = (hp - amount).normalize(0, MaxHp),
         cards = cards,
     )
 
     fun healedBy(amount: Int) = Player(
+        id = id,
         name = name,
         hp = (hp + amount).normalize(0, MaxHp),
         cards = cards,
     )
 
     fun usedCard(card: Card?) = Player(
+        id = id,
         name = name,
         hp = hp,
         cards = if (card != null) cards - card else cards,
     ).run { if (card == null) drawnCard() else this }
 
     private fun drawnCard() = Player(
+        id = id,
         name = name,
         hp = hp,
         cards = cards + Card.draw(),

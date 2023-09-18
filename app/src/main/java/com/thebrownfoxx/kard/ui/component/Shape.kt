@@ -1,4 +1,4 @@
-package com.thebrownfoxx.kard.ui.component.extension
+package com.thebrownfoxx.kard.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

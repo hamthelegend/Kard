@@ -1,6 +1,7 @@
 package com.thebrownfoxx.kard.logic
 
 import com.thebrownfoxx.kard.logic.extension.Coin
+import com.thebrownfoxx.kard.logic.extension.CoinFace
 import com.thebrownfoxx.kard.logic.turn.Turn
 import com.thebrownfoxx.kard.logic.turn.TurnResult
 import com.thebrownfoxx.kard.logic.turn.TurnType
@@ -13,10 +14,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
 class Game(playerName: String, aiName: String) {
-    private val _player = MutableStateFlow(Player(playerName))
+    private val _player = MutableStateFlow(Player(id = 1, playerName))
     val player: StateFlow<Player> = _player
 
-    private val _ai = MutableStateFlow(Player(aiName))
+    private val _ai = MutableStateFlow(Player(id = 2, aiName))
     val ai: StateFlow<Player> = _ai
 
     private val _turnResult = MutableStateFlow<TurnResult?>(null)
@@ -32,17 +33,19 @@ class Game(playerName: String, aiName: String) {
 
     val over = winner.map { it != null }
 
-    private val Player.state get() = when (this) {
-        player.value -> _player
-        else -> _ai
+    private val Player.state get() = when (id) {
+        player.value.id -> _player
+        ai.value.id -> _ai
+        else -> throw PlayerNotFoundException(this)
     }
 
-    private val Player.enemyState get() = when (this) {
-        player.value -> _ai
-        else -> _player
+    private val Player.enemyState get() = when (id) {
+        player.value.id -> _ai
+        ai.value.id -> _player
+        else -> throw PlayerNotFoundException(this)
     }
 
-    fun play(playerTurn: Turn) {
+    private fun play(playerTurn: Turn) {
         if (playerTurn.type !in player.value.availableTurnTypes)
             throw IllegalArgumentException("Player cannot play that card")
 
@@ -63,6 +66,18 @@ class Game(playerName: String, aiName: String) {
         _turnResult.update {
             calculateSupposedResults(playerTurn, aiTurn).calculateResult()
         }
+    }
+
+    fun attack(doubleDamage: Boolean) {
+        play(Turn.Attack(player = player.value, doubleDamage = doubleDamage))
+    }
+
+    fun block(guessedCoin: CoinFace) {
+        play(Turn.Block(player = player.value, guessedCoin = guessedCoin))
+    }
+
+    fun heal() {
+        play(Turn.Heal(player.value))
     }
 
     fun commitResult() {

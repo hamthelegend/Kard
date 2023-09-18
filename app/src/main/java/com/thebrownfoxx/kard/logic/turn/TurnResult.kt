@@ -1,10 +1,23 @@
 package com.thebrownfoxx.kard.logic.turn
 
-import com.thebrownfoxx.kard.logic.Game
 import com.thebrownfoxx.kard.logic.Player
-import com.thebrownfoxx.kard.logic.turn.TurnResult.*
+import com.thebrownfoxx.kard.logic.turn.TurnResult.AttackAttack
+import com.thebrownfoxx.kard.logic.turn.TurnResult.AttackBlock
+import com.thebrownfoxx.kard.logic.turn.TurnResult.AttackHeal
+import com.thebrownfoxx.kard.logic.turn.TurnResult.BlockBlock
+import com.thebrownfoxx.kard.logic.turn.TurnResult.BlockHeal
+import com.thebrownfoxx.kard.logic.turn.TurnResult.HealHeal
 
 sealed class TurnResult {
+    abstract val supposedTurnResult1: SupposedTurnResult
+    abstract val supposedTurnResult2: SupposedTurnResult
+
+    fun supposedTurnOf(player: Player) = when (player.id) {
+        supposedTurnResult1.player.id -> supposedTurnResult1
+        supposedTurnResult2.player.id -> supposedTurnResult2
+        else -> throw IllegalArgumentException("$player is not a player of this game.")
+    }
+
     /**
      * Whoever has the stronger damage does damage. The weaker damage is canceled.
      * Damage is canceled if the damages are equal.
@@ -15,6 +28,9 @@ sealed class TurnResult {
         val attack1: SupposedTurnResult.Attack,
         val attack2: SupposedTurnResult.Attack,
     ) : TurnResult() {
+        override val supposedTurnResult1 = attack1
+        override val supposedTurnResult2 = attack2
+
         val winner = when {
             attack1.totalDamage > attack2.totalDamage -> attack1.player
             attack1.totalDamage < attack2.totalDamage -> attack2.player
@@ -41,6 +57,9 @@ sealed class TurnResult {
         val attack: SupposedTurnResult.Attack,
         val block: SupposedTurnResult.Block,
     ) : TurnResult() {
+        override val supposedTurnResult1 = attack
+        override val supposedTurnResult2 = block
+
         val damageDealt = block.totalDamage
     }
 
@@ -51,7 +70,10 @@ sealed class TurnResult {
     data class AttackHeal(
         val attack: SupposedTurnResult.Attack,
         val heal: SupposedTurnResult.Heal,
-    ) : TurnResult()
+    ) : TurnResult() {
+        override val supposedTurnResult1 = attack
+        override val supposedTurnResult2 = heal
+    }
 
     /**
      * Nothing happens.
@@ -60,7 +82,10 @@ sealed class TurnResult {
     data class BlockBlock(
         val block1: SupposedTurnResult.Block,
         val block2: SupposedTurnResult.Block,
-    ) : TurnResult()
+    ) : TurnResult() {
+        override val supposedTurnResult1 = block1
+        override val supposedTurnResult2 = block2
+    }
 
     /**
      * Healing goes through.
@@ -69,7 +94,10 @@ sealed class TurnResult {
     data class BlockHeal(
         val block: SupposedTurnResult.Block,
         val heal: SupposedTurnResult.Heal,
-    ) : TurnResult()
+    ) : TurnResult() {
+        override val supposedTurnResult1 = block
+        override val supposedTurnResult2 = heal
+    }
 
     /**
      * Both get healed.
@@ -78,7 +106,10 @@ sealed class TurnResult {
     data class HealHeal(
         val heal1: SupposedTurnResult.Heal,
         val heal2: SupposedTurnResult.Heal,
-    ) : TurnResult()
+    ) : TurnResult() {
+        override val supposedTurnResult1 = heal1
+        override val supposedTurnResult2 = heal2
+    }
 }
 
 fun SupposedTurnResults.calculateResult() = when (supposedTurnResult1) {

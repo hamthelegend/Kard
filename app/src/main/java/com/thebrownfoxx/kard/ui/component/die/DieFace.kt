@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,11 +14,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.thebrownfoxx.kard.ui.component.extension.Shape
+import com.thebrownfoxx.kard.ui.component.Shape
 import com.thebrownfoxx.kard.ui.theme.KardTheme
 
 @Composable
-fun DieContent(
+fun BoxScope.DieDot(
+    alignment: Alignment,
+    modifier: Modifier = Modifier,
+) {
+    Shape(
+        shape = CircleShape,
+        color = LocalContentColor.current,
+        modifier = modifier
+            .size(16.dp)
+            .align(alignment),
+    )
+}
+
+@Composable
+fun DieFace(
     value: Int?,
     modifier: Modifier = Modifier,
 ) {
@@ -34,12 +49,11 @@ fun DieContent(
 }
 
 @Composable
-fun NullDieFace(modifier: Modifier = Modifier, ) {
+fun NullDieFace(modifier: Modifier = Modifier) {
     Box(modifier = modifier.size(64.dp)) {
         Text(
             text = "?",
             style = MaterialTheme.typography.displaySmall,
-            color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.align(Alignment.Center),
         )
@@ -52,7 +66,6 @@ fun DieFace1(modifier: Modifier = Modifier) {
         DieDot(alignment = Alignment.Center)
     }
 }
-
 
 @Composable
 fun DieFace2(modifier: Modifier = Modifier) {
@@ -113,7 +126,6 @@ fun NonStandardDieFace(
         Text(
             text = value.toString(),
             style = MaterialTheme.typography.displaySmall,
-            color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.align(Alignment.Center),
         )
@@ -182,18 +194,4 @@ fun NonStandardDieFacePreview() {
     KardTheme {
         NonStandardDieFace(value = 7, modifier = Modifier.padding(16.dp))
     }
-}
-
-@Composable
-fun BoxScope.DieDot(
-    alignment: Alignment,
-    modifier: Modifier = Modifier,
-) {
-    Shape(
-        shape = CircleShape,
-        color = MaterialTheme.colorScheme.primary,
-        modifier = modifier
-            .size(16.dp)
-            .align(alignment),
-    )
 }

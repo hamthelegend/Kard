@@ -5,7 +5,20 @@
     <string name="cards">Cards</string>
     <string name="draw_and_attack">Draw and Attack</string>
     <string name="double_damage_attack">Attack with Double Damage</string>
+    <string name="attack">Attack</string>
     <string name="block">Block</string>
     <string name="heal">Heal</string>
     <string name="no_card">No card</string>
+    <string name="roll">Roll</string>
+    <string name="flip">Flip</string>
+    <string name="heads">Heads</string>
+    <string name="tails">Tails</string>
+    <string name="okay">Okay</string>
+    <string name="play">Play</string>
+    <string name="coins_matched">Coins matched!</string>
+    <string name="coins_did_not_match">Coins didn\'t match</string>
+    <string name="picked">Picked</string>
+    <string name="flipped">Flipped</string>
+    <string name="you_rolled">Your rolled a %1$s!</string>
+    <string name="pick_a_coin_face">Pick a coin face</string>
 </resources>
