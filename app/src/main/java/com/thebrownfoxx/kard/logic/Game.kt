@@ -12,11 +12,11 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
-class Game {
-    private val _player = MutableStateFlow(Player(name = "You"))
+class Game(playerName: String, aiName: String) {
+    private val _player = MutableStateFlow(Player(playerName))
     val player: StateFlow<Player> = _player
 
-    private val _ai = MutableStateFlow(Player(name = "AI"))
+    private val _ai = MutableStateFlow(Player(aiName))
     val ai: StateFlow<Player> = _ai
 
     private val _turnResult = MutableStateFlow<TurnResult?>(null)

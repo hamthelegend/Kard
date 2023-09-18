@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Kard</string>
+    <string name="player">Player</string>
+    <string name="hp">HP</string>
+    <string name="cards">Cards</string>
+    <string name="draw_and_attack">Draw and Attack</string>
+    <string name="double_damage_attack">Attack with Double Damage</string>
+    <string name="block">Block</string>
+    <string name="heal">Heal</string>
+    <string name="no_card">No card</string>
 </resources>
