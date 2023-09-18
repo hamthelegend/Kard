@@ -60,6 +60,7 @@ sealed class TurnResult {
         override val supposedTurnResult1 = attack
         override val supposedTurnResult2 = block
 
+        val damageBlocked = attack.totalDamage - block.totalDamage
         val damageDealt = block.totalDamage
     }
 

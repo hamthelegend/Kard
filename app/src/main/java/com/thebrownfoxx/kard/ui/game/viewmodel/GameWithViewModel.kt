@@ -24,6 +24,9 @@ fun GameWithViewModel(
         onCardCommitted = viewModel::onCardCommitted,
         onCoinGuessed = viewModel::onCoinGuessed,
         onTurnAcknowledged = viewModel::onTurnAcknowledged,
+        onSupposedTurnResult1Acknowledged = viewModel::onSupposedTurnResult1Acknowledged,
+        onSupposedTurnResult2Acknowledged = viewModel::onSupposedTurnResult2Acknowledged,
+        onTurnResultAcknowledged = viewModel::onTurnResultAcknowledged,
         modifier = modifier.fillMaxSize(),
     )
 }

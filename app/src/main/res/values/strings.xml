@@ -21,4 +21,7 @@
     <string name="flipped">Flipped</string>
     <string name="you_rolled">Your rolled a %1$s!</string>
     <string name="pick_a_coin_face">Pick a coin face</string>
+    <string name="attack_supposed_turn_result">%1$s has queued %2$s damage.</string>
+    <string name="block_supposed_turn_result">%1$s chose to block.</string>
+    <string name="heal_supposed_turn_result">%1$s chose to heal by %2$s hp.</string>
 </resources>

@@ -83,6 +83,11 @@ class GameViewModel : ViewModel() {
         val turnResult = game.turnResult.value
         if (turnResult != null) {
             uiState = UiState.ShowingTurnResult(turnResult)
+            game.commitResult()
         }
+    }
+
+    fun onTurnResultAcknowledged() {
+        uiState = UiState.SelectingTurn(selectedCard = null)
     }
 }

@@ -1,7 +1,6 @@
 package com.thebrownfoxx.kard.ui.game.supposedturnresult
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.twotone.Favorite
@@ -49,9 +48,7 @@ fun SupposedTurnResultIcon(
         modifier = modifier,
     ) {
         Box(
-            modifier = modifier
-                .padding(16.dp)
-                .size(64.dp),
+            modifier = modifier.size(64.dp),
         ) {
             Icon(
                 imageVector = icon,

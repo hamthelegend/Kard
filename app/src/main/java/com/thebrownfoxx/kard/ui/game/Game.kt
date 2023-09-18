@@ -19,6 +19,8 @@ import com.thebrownfoxx.kard.ui.game.coinguesser.CoinGuesser
 import com.thebrownfoxx.kard.ui.game.dierollresult.DieRollResult
 import com.thebrownfoxx.kard.ui.game.playerinfo.AiInfo
 import com.thebrownfoxx.kard.ui.game.playerinfo.PlayerInfo
+import com.thebrownfoxx.kard.ui.game.supposedturnresult.SupposedTurnResult
+import com.thebrownfoxx.kard.ui.game.turnresult.TurnResult
 import com.thebrownfoxx.kard.ui.theme.KardTheme
 
 @Composable
@@ -30,6 +32,9 @@ fun Game(
     onCardCommitted: () -> Unit,
     onCoinGuessed: (CoinFace) -> Unit,
     onTurnAcknowledged: () -> Unit,
+    onSupposedTurnResult1Acknowledged: () -> Unit,
+    onSupposedTurnResult2Acknowledged: () -> Unit,
+    onTurnResultAcknowledged: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface {
@@ -70,9 +75,25 @@ fun Game(
                     )
                 }
 
-                is UiState.ShowingSupposedTurnResult1 -> TODO()
-                is UiState.ShowingSupposedTurnResult2 -> TODO()
-                is UiState.ShowingTurnResult -> TODO()
+                is UiState.ShowingSupposedTurnResult1 -> {
+                    SupposedTurnResult(
+                        supposedTurnResult = uiState.supposedTurnResult,
+                        onAcknowledge = onSupposedTurnResult1Acknowledged,
+                    )
+                }
+
+                is UiState.ShowingSupposedTurnResult2 -> {
+                    SupposedTurnResult(
+                        supposedTurnResult = uiState.supposedTurnResult,
+                        onAcknowledge = onSupposedTurnResult2Acknowledged,
+                    )
+                }
+                is UiState.ShowingTurnResult -> {
+                    TurnResult(
+                        turnResult = uiState.turnResult,
+                        onAcknowledge = onTurnResultAcknowledged,
+                    )
+                }
             }
         }
     }
@@ -90,6 +111,9 @@ fun GamePreview() {
             onCardCommitted = {},
             onTurnAcknowledged = {},
             onCoinGuessed = {},
+            onSupposedTurnResult1Acknowledged = {},
+            onSupposedTurnResult2Acknowledged = {},
+            onTurnResultAcknowledged = {},
         )
     }
 }
