@@ -10,8 +10,10 @@ import com.thebrownfoxx.kard.logic.turn.Card
 import com.thebrownfoxx.kard.logic.turn.SupposedTurnResult
 import com.thebrownfoxx.kard.ui.game.UiState
 
+val newGame get() = Game(playerName = "Player", aiName = "AI")
+
 class GameViewModel : ViewModel() {
-    var game by mutableStateOf(Game(playerName = "Player", aiName = "AI"))
+    var game by mutableStateOf(newGame)
         private set
 
     var uiState by mutableStateOf<UiState>(UiState.SelectingTurn(selectedCard = null))
@@ -89,5 +91,9 @@ class GameViewModel : ViewModel() {
 
     fun onTurnResultAcknowledged() {
         uiState = UiState.SelectingTurn(selectedCard = null)
+    }
+
+    fun onGameOverAcknowledge() {
+        game = newGame
     }
 }

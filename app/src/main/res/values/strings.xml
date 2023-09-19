@@ -24,4 +24,9 @@
     <string name="attack_supposed_turn_result">%1$s has queued %2$s damage.</string>
     <string name="block_supposed_turn_result">%1$s chose to block.</string>
     <string name="heal_supposed_turn_result">%1$s chose to heal by %2$s hp.</string>
+    <string name="you_won">You won!</string>
+    <string name="you_lost">You lost!</string>
+    <string name="player_won_text">You have stopped AI from taking over the world… for now.</string>
+    <string name="player_lost_text">You failed to stop AI from taking over the world.</string>
+    <string name="ai">AI</string>
 </resources>

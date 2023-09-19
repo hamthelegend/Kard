@@ -19,6 +19,7 @@ import com.thebrownfoxx.kard.ui.game.coinguesser.CoinGuesser
 import com.thebrownfoxx.kard.ui.game.dierollresult.DieRollResult
 import com.thebrownfoxx.kard.ui.game.playerinfo.AiInfo
 import com.thebrownfoxx.kard.ui.game.playerinfo.PlayerInfo
+import com.thebrownfoxx.kard.ui.game.gameover.GameOver
 import com.thebrownfoxx.kard.ui.game.supposedturnresult.SupposedTurnResult
 import com.thebrownfoxx.kard.ui.game.turnresult.TurnResult
 import com.thebrownfoxx.kard.ui.theme.KardTheme
@@ -35,6 +36,9 @@ fun Game(
     onSupposedTurnResult1Acknowledged: () -> Unit,
     onSupposedTurnResult2Acknowledged: () -> Unit,
     onTurnResultAcknowledged: () -> Unit,
+    showGameOver: Boolean,
+    playerWon: Boolean,
+    onGameOverAcknowledge: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface {
@@ -97,6 +101,8 @@ fun Game(
             }
         }
     }
+
+    GameOver(show = showGameOver, playerWon = playerWon, onAcknowledge = onGameOverAcknowledge)
 }
 
 @Preview
@@ -114,6 +120,9 @@ fun GamePreview() {
             onSupposedTurnResult1Acknowledged = {},
             onSupposedTurnResult2Acknowledged = {},
             onTurnResultAcknowledged = {},
+            showGameOver = false,
+            playerWon = false,
+            onGameOverAcknowledge = {},
         )
     }
 }
