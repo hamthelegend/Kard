@@ -10,20 +10,20 @@ import com.thebrownfoxx.kard.logic.turn.Card
 import com.thebrownfoxx.kard.logic.turn.SupposedTurnResult
 import com.thebrownfoxx.kard.ui.game.UiState
 
-val newGame get() = Game(playerName = "Player", aiName = "AI")
-
 class GameViewModel : ViewModel() {
+    private val newGame get() = Game(playerName = "Player", aiName = "AI")
+
     var game by mutableStateOf(newGame)
         private set
 
     var uiState by mutableStateOf<UiState>(UiState.SelectingTurn(selectedCard = null))
         private set
 
-    fun onCardSelected(card: Card?) {
+    fun onCardSelect(card: Card?) {
         uiState = UiState.SelectingTurn(card)
     }
 
-    fun onCardCommitted() {
+    fun onCardCommit() {
         val currentUiState = uiState
         if (currentUiState is UiState.SelectingTurn) {
             val player = game.player.value
@@ -50,13 +50,13 @@ class GameViewModel : ViewModel() {
 
                 Card.Heal -> {
                     game.heal()
-                    onTurnAcknowledged()
+                    onTurnAcknowledge()
                 }
             }
         }
     }
 
-    fun onCoinGuessed(guessedCoin: CoinFace) {
+    fun onCoinGuess(guessedCoin: CoinFace) {
         val currentUiState = uiState
         if (currentUiState is UiState.BlockingGuessing) {
             game.block(guessedCoin)
@@ -67,21 +67,21 @@ class GameViewModel : ViewModel() {
         }
     }
 
-    fun onTurnAcknowledged() {
+    fun onTurnAcknowledge() {
         val supposedTurnResult = game.turnResult.value?.supposedTurnResult1
         if (supposedTurnResult != null) {
             uiState = UiState.ShowingSupposedTurnResult1(supposedTurnResult)
         }
     }
 
-    fun onSupposedTurnResult1Acknowledged() {
+    fun onSupposedTurnResult1Acknowledge() {
         val supposedTurnResult = game.turnResult.value?.supposedTurnResult2
         if (supposedTurnResult != null) {
             uiState = UiState.ShowingSupposedTurnResult2(supposedTurnResult)
         }
     }
 
-    fun onSupposedTurnResult2Acknowledged() {
+    fun onSupposedTurnResult2Acknowledge() {
         val turnResult = game.turnResult.value
         if (turnResult != null) {
             uiState = UiState.ShowingTurnResult(turnResult)
@@ -89,7 +89,7 @@ class GameViewModel : ViewModel() {
         }
     }
 
-    fun onTurnResultAcknowledged() {
+    fun onTurnResultAcknowledge() {
         uiState = UiState.SelectingTurn(selectedCard = null)
     }
 

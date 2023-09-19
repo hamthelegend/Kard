@@ -25,8 +25,8 @@ import com.thebrownfoxx.kard.ui.theme.KardTheme
 fun CardSelector(
     cards: List<Card>,
     selectedCard: Card?,
-    onCardSelected: (Card?) -> Unit,
-    onCardCommitted: () -> Unit,
+    onCardSelect: (Card?) -> Unit,
+    onCardCommit: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val title = stringResource(
@@ -42,7 +42,7 @@ fun CardSelector(
         title = title,
         actionButtonIcon = KardIcons.PlayArrow,
         actionButtonText = stringResource(id = R.string.play),
-        onActionButtonClick = onCardCommitted,
+        onActionButtonClick = onCardCommit,
         modifier = modifier,
     ) {
         Row(
@@ -50,13 +50,13 @@ fun CardSelector(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            NoCardSelector(selected = selectedCard == null, onClick = { onCardSelected(null) })
+            NoCardSelector(selected = selectedCard == null, onClick = { onCardSelect(null) })
             for (card in Card.values()) {
                 Card(
                     card = card,
                     count = cards.count { it == card },
                     selected = card == selectedCard,
-                    onClick = { onCardSelected(card) },
+                    onClick = { onCardSelect(card) },
                 )
             }
         }
@@ -74,8 +74,8 @@ fun CardSelectorPreview() {
         CardSelector(
             cards = cards,
             selectedCard = selectedCard,
-            onCardSelected = { selectedCard = it },
-            onCardCommitted = {},
+            onCardSelect = { selectedCard = it },
+            onCardCommit = {},
             modifier = Modifier.padding(16.dp),
         )
     }

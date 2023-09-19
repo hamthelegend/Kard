@@ -72,7 +72,7 @@ fun ActionCardPreview() {
             title = "Attack and Draw",
             actionButtonIcon = KardIcons.PlayArrow,
             actionButtonText = "Play",
-            onActionButtonClick = { /*TODO*/ },
+            onActionButtonClick = {},
             modifier = Modifier.padding(16.dp),
         ) {
             Row(

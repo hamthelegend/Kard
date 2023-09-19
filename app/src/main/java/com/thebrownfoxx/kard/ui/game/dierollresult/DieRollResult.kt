@@ -16,7 +16,7 @@ import com.thebrownfoxx.kard.ui.theme.KardTheme
 @Composable
 fun DieRollResult(
     value: Int,
-    onAttackAcknowledged: () -> Unit,
+    onAcknowledge: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val title = stringResource(R.string.you_rolled, value)
@@ -25,7 +25,7 @@ fun DieRollResult(
         title = title,
         actionButtonIcon = KardIcons.Check,
         actionButtonText = stringResource(id = R.string.okay),
-        onActionButtonClick = onAttackAcknowledged,
+        onActionButtonClick = onAcknowledge,
         modifier = modifier,
     ) {
         Die(value = value)
@@ -38,7 +38,7 @@ fun DieRollResultPreview() {
     KardTheme {
         DieRollResult(
             value = 5,
-            onAttackAcknowledged = {},
+            onAcknowledge = {},
             modifier = Modifier.padding(16.dp),
         )
     }

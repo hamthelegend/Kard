@@ -23,7 +23,7 @@ import com.thebrownfoxx.kard.ui.theme.KardTheme
 fun CoinFlipResult(
     guessedCoin: CoinFace,
     flippedCoin: CoinFace,
-    onBlockAcknowledged: () -> Unit,
+    onAcknowledge: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val title = when (guessedCoin) {
@@ -35,7 +35,7 @@ fun CoinFlipResult(
         title = title,
         actionButtonIcon = KardIcons.Check,
         actionButtonText = stringResource(id = R.string.okay),
-        onActionButtonClick = onBlockAcknowledged,
+        onActionButtonClick = onAcknowledge,
         modifier = modifier,
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterHorizontally)) {
@@ -64,7 +64,7 @@ fun CoinFlipResultPreview() {
         CoinFlipResult(
             guessedCoin = CoinFace.Heads,
             flippedCoin = CoinFace.Tails,
-            onBlockAcknowledged = {},
+            onAcknowledge = {},
             modifier = Modifier.padding(16.dp),
         )
     }

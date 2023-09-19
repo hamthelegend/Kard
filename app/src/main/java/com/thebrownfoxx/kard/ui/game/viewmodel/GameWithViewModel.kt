@@ -14,27 +14,29 @@ fun GameWithViewModel(
     modifier: Modifier = Modifier,
     viewModel: GameViewModel = viewModel(),
 ) {
-    val player by viewModel.game.player.collectAsState()
-    val ai by viewModel.game.ai.collectAsState()
-    val gameOver by viewModel.game.over.collectAsState(initial = false)
-    val showGameOver = gameOver && viewModel.uiState is UiState.SelectingTurn
-    val winner by viewModel.game.winner.collectAsState(initial = null)
-    val playerWon = player.id == winner?.id
+    viewModel.apply {
+        val player by game.player.collectAsState()
+        val ai by game.ai.collectAsState()
+        val gameOver by game.over.collectAsState(initial = false)
+        val showGameOver = gameOver && uiState is UiState.SelectingTurn
+        val winner by game.winner.collectAsState(initial = null)
+        val playerWon = player.id == winner?.id
 
-    Game(
-        player = player,
-        ai = ai,
-        uiState = viewModel.uiState,
-        onCardSelected = viewModel::onCardSelected,
-        onCardCommitted = viewModel::onCardCommitted,
-        onCoinGuessed = viewModel::onCoinGuessed,
-        onTurnAcknowledged = viewModel::onTurnAcknowledged,
-        onSupposedTurnResult1Acknowledged = viewModel::onSupposedTurnResult1Acknowledged,
-        onSupposedTurnResult2Acknowledged = viewModel::onSupposedTurnResult2Acknowledged,
-        onTurnResultAcknowledged = viewModel::onTurnResultAcknowledged,
-        showGameOver = showGameOver,
-        playerWon = playerWon,
-        onGameOverAcknowledge = viewModel::onGameOverAcknowledge,
-        modifier = modifier.fillMaxSize(),
-    )
+        Game(
+            player = player,
+            ai = ai,
+            uiState = uiState,
+            onCardSelect = ::onCardSelect,
+            onCardCommit = ::onCardCommit,
+            onCoinGuess = ::onCoinGuess,
+            onTurnAcknowledge = ::onTurnAcknowledge,
+            onSupposedTurnResult1Acknowledge = ::onSupposedTurnResult1Acknowledge,
+            onSupposedTurnResult2Acknowledge = ::onSupposedTurnResult2Acknowledge,
+            onTurnResultAcknowledge = ::onTurnResultAcknowledge,
+            showGameOver = showGameOver,
+            playerWon = playerWon,
+            onGameOverAcknowledge = ::onGameOverAcknowledge,
+            modifier = modifier.fillMaxSize(),
+        )
+    }
 }

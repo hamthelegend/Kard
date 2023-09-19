@@ -29,13 +29,13 @@ fun Game(
     player: Player,
     ai: Player,
     uiState: UiState,
-    onCardSelected: (Card?) -> Unit,
-    onCardCommitted: () -> Unit,
-    onCoinGuessed: (CoinFace) -> Unit,
-    onTurnAcknowledged: () -> Unit,
-    onSupposedTurnResult1Acknowledged: () -> Unit,
-    onSupposedTurnResult2Acknowledged: () -> Unit,
-    onTurnResultAcknowledged: () -> Unit,
+    onCardSelect: (Card?) -> Unit,
+    onCardCommit: () -> Unit,
+    onCoinGuess: (CoinFace) -> Unit,
+    onTurnAcknowledge: () -> Unit,
+    onSupposedTurnResult1Acknowledge: () -> Unit,
+    onSupposedTurnResult2Acknowledge: () -> Unit,
+    onTurnResultAcknowledge: () -> Unit,
     showGameOver: Boolean,
     playerWon: Boolean,
     onGameOverAcknowledge: () -> Unit,
@@ -55,47 +55,47 @@ fun Game(
                     CardSelector(
                         cards = player.cards,
                         selectedCard = uiState.selectedCard,
-                        onCardSelected = onCardSelected,
-                        onCardCommitted = onCardCommitted,
+                        onCardSelect = onCardSelect,
+                        onCardCommit = onCardCommit,
                     )
                 }
 
                 is UiState.Attacked -> {
                     DieRollResult(
                         value = uiState.rolledDie,
-                        onAttackAcknowledged = onTurnAcknowledged,
+                        onAcknowledge = onTurnAcknowledge,
                     )
                 }
 
                 is UiState.BlockingGuessing -> {
-                    CoinGuesser(onCoinGuessed = onCoinGuessed)
+                    CoinGuesser(onCoinGuessed = onCoinGuess)
                 }
 
                 is UiState.BlockingFlipped -> {
                     CoinFlipResult(
                         guessedCoin = uiState.guessedCoin,
                         flippedCoin = uiState.flippedCoin,
-                        onBlockAcknowledged = onTurnAcknowledged,
+                        onAcknowledge = onTurnAcknowledge,
                     )
                 }
 
                 is UiState.ShowingSupposedTurnResult1 -> {
                     SupposedTurnResult(
                         supposedTurnResult = uiState.supposedTurnResult,
-                        onAcknowledge = onSupposedTurnResult1Acknowledged,
+                        onAcknowledge = onSupposedTurnResult1Acknowledge,
                     )
                 }
 
                 is UiState.ShowingSupposedTurnResult2 -> {
                     SupposedTurnResult(
                         supposedTurnResult = uiState.supposedTurnResult,
-                        onAcknowledge = onSupposedTurnResult2Acknowledged,
+                        onAcknowledge = onSupposedTurnResult2Acknowledge,
                     )
                 }
                 is UiState.ShowingTurnResult -> {
                     TurnResult(
                         turnResult = uiState.turnResult,
-                        onAcknowledge = onTurnResultAcknowledged,
+                        onAcknowledge = onTurnResultAcknowledge,
                     )
                 }
             }
@@ -113,13 +113,13 @@ fun GamePreview() {
             player = Player(id = 1, name = "Player").damagedBy(50),
             ai = Player(id = 2, name = "AI").damagedBy(70).usedCard(null),
             uiState = UiState.SelectingTurn(selectedCard = null),
-            onCardSelected = {},
-            onCardCommitted = {},
-            onTurnAcknowledged = {},
-            onCoinGuessed = {},
-            onSupposedTurnResult1Acknowledged = {},
-            onSupposedTurnResult2Acknowledged = {},
-            onTurnResultAcknowledged = {},
+            onCardSelect = {},
+            onCardCommit = {},
+            onTurnAcknowledge = {},
+            onCoinGuess = {},
+            onSupposedTurnResult1Acknowledge = {},
+            onSupposedTurnResult2Acknowledge = {},
+            onTurnResultAcknowledge = {},
             showGameOver = false,
             playerWon = false,
             onGameOverAcknowledge = {},
