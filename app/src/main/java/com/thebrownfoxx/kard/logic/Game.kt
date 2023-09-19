@@ -49,7 +49,9 @@ class Game(playerName: String, aiName: String) {
         if (playerTurn.type !in player.value.availableTurnTypes)
             throw IllegalArgumentException("Player cannot play that card")
 
-        val aiTurnType = ai.value.availableTurnTypes.random()
+        val aiTurnType =
+            if (ai.value.hp < Player.MaxHp) ai.value.availableTurnTypes.random()
+            else (ai.value.availableTurnTypes - TurnType.Heal).random()
         if (aiTurnType !in ai.value.availableTurnTypes)
             throw IllegalArgumentException("AI cannot play that card")
 
