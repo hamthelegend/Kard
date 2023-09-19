@@ -36,7 +36,8 @@ fun SupposedTurnResult(
         )
 
         is SupposedTurnResult.Block -> stringResource(
-            R.string.block_supposed_turn_result,
+            if (supposedTurnResult.blockedAnything) R.string.block_supposed_turn_result_successful
+            else R.string.block_supposed_turn_result_failed,
             supposedTurnResult.player.name,
         )
 

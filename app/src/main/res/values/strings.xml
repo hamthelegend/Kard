@@ -22,11 +22,19 @@
     <string name="you_rolled">Your rolled a %1$s!</string>
     <string name="pick_a_coin_face">Pick a coin face</string>
     <string name="attack_supposed_turn_result">%1$s has queued %2$s damage.</string>
-    <string name="block_supposed_turn_result">%1$s chose to block.</string>
+    <string name="block_supposed_turn_result_successful">%1$s chose to block.</string>
+    <string name="block_supposed_turn_result_failed">%1$s chose to block, but failed.</string>
     <string name="heal_supposed_turn_result">%1$s chose to heal by %2$s hp.</string>
     <string name="you_won">You won!</string>
     <string name="you_lost">You lost!</string>
     <string name="player_won_text">You have stopped AI from taking over the world… for now.</string>
     <string name="player_lost_text">You failed to stop AI from taking over the world.</string>
     <string name="ai">AI</string>
+    <string name="attack_attack">%1$s won the duel and dealt %2$s to %3$s.</string>
+    <string name="attack_attack_tie">It\'s a tie. No damage. was dealt.</string>
+    <string name="attack_block">%1$s has blocked %2$s damage. %3$s has dealt %4$s damage to %5$s.</string>
+    <string name="attack_heal">%1$s\'s healing was canceled. %2$s has dealt %3$s to %4$s</string>
+    <string name="block_block">Nothing happened.</string>
+    <string name="block_heal">%1$s healed by %2$s hp.</string>
+    <string name="heal_heal">Both players healed by %1$s hp.</string>
 </resources>

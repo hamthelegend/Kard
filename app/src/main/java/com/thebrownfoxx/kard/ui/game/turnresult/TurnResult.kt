@@ -28,15 +28,37 @@ fun TurnResult(
 ) {
     val text = when (turnResult) {
         is TurnResult.AttackAttack -> if (turnResult.winner != null && turnResult.loser != null) {
-            "${turnResult.winner.name} won the duel and dealt ${turnResult.damageDealt} to ${turnResult.loser.name}."
+            stringResource(
+                R.string.attack_attack,
+                turnResult.winner.name,
+                turnResult.damageDealt,
+                turnResult.loser.name
+            )
         } else {
-            "It's a tie. No damage. was dealt."
+            stringResource(R.string.attack_attack_tie)
         }
-        is TurnResult.AttackBlock -> "${turnResult.block.player.name} has blocked ${turnResult.damageBlocked} damage. ${turnResult.attack.player.name} has dealt ${turnResult.damageDealt} damage to ${turnResult.block.player.name}."
-        is TurnResult.AttackHeal -> "${turnResult.heal.player.name}'s healing was canceled. ${turnResult.attack.player.name} has dealt ${turnResult.attack.totalDamage} to ${turnResult.heal.player.name}"
-        is TurnResult.BlockBlock -> "Nothing happened."
-        is TurnResult.BlockHeal -> "${turnResult.heal.player.name} healed by ${Player.HealAmount} hp."
-        is TurnResult.HealHeal -> "Both players healed by ${Player.HealAmount} hp."
+        is TurnResult.AttackBlock -> stringResource(
+            R.string.attack_block,
+            turnResult.block.player.name,
+            turnResult.damageBlocked,
+            turnResult.attack.player.name,
+            turnResult.damageDealt,
+            turnResult.block.player.name
+        )
+        is TurnResult.AttackHeal -> stringResource(
+            R.string.attack_heal,
+            turnResult.heal.player.name,
+            turnResult.attack.player.name,
+            turnResult.attack.totalDamage,
+            turnResult.heal.player.name
+        )
+        is TurnResult.BlockBlock -> stringResource(R.string.block_block)
+        is TurnResult.BlockHeal -> stringResource(
+            R.string.block_heal,
+            turnResult.heal.player.name,
+            Player.HealAmount
+        )
+        is TurnResult.HealHeal -> stringResource(R.string.heal_heal, Player.HealAmount)
     }
 
     Surface(
