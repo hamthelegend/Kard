@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thebrownfoxx.kard.R
 import com.thebrownfoxx.kard.logic.extension.CoinFace
-import com.thebrownfoxx.kard.ui.component.ActionCard
+import com.thebrownfoxx.kard.ui.component.ActionCardContent
 import com.thebrownfoxx.kard.ui.component.coin.Coin
 import com.thebrownfoxx.kard.ui.theme.KardIcons
 import com.thebrownfoxx.kard.ui.theme.KardTheme
@@ -31,7 +31,7 @@ fun CoinFlipResult(
         else -> stringResource(R.string.coins_did_not_match)
     }
 
-    ActionCard(
+    ActionCardContent(
         title = title,
         actionButtonIcon = KardIcons.Check,
         actionButtonText = stringResource(id = R.string.okay),

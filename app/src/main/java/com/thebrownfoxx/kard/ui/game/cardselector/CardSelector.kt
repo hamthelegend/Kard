@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thebrownfoxx.kard.R
 import com.thebrownfoxx.kard.logic.turn.Card
-import com.thebrownfoxx.kard.ui.component.ActionCard
+import com.thebrownfoxx.kard.ui.component.ActionCardContent
 import com.thebrownfoxx.kard.ui.theme.KardIcons
 import com.thebrownfoxx.kard.ui.theme.KardTheme
 
@@ -38,7 +38,7 @@ fun CardSelector(
         }
     )
 
-    ActionCard(
+    ActionCardContent(
         title = title,
         actionButtonIcon = KardIcons.PlayArrow,
         actionButtonText = stringResource(id = R.string.play),

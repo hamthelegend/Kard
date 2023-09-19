@@ -30,7 +30,7 @@ sealed class SupposedTurnResult {
         val totalDamage: Int,
     ) : SupposedTurnResult() {
         val coinsMatch = guessedCoin == flippedCoin
-        val blockedAnything = originalDamage > 0
+        val blockedAnything = originalDamage - totalDamage > 0
     }
 
     data class Heal(override val player: Player) : SupposedTurnResult()

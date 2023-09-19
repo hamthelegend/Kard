@@ -53,7 +53,7 @@ fun NoCardSelector(
         ) {
             Icon(
                 painter = painterResource(R.drawable.sword),
-                contentDescription = stringResource(R.string.no_card),
+                contentDescription = stringResource(R.string.draw_and_attack),
                 modifier = Modifier.align(Alignment.Center),
             )
         }

@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.twotone.PlayArrow
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,14 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thebrownfoxx.kard.logic.turn.Card
-import com.thebrownfoxx.kard.ui.extension.Elevation
 import com.thebrownfoxx.kard.ui.game.cardselector.Card
 import com.thebrownfoxx.kard.ui.game.cardselector.NoCardSelector
 import com.thebrownfoxx.kard.ui.theme.KardIcons
 import com.thebrownfoxx.kard.ui.theme.KardTheme
 
 @Composable
-fun ActionCard(
+fun ActionCardContent(
     title: String,
     actionButtonIcon: ImageVector,
     actionButtonText: String,
@@ -34,33 +32,27 @@ fun ActionCard(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
-    Surface(
+    Column(
         modifier = modifier,
-        shape = MaterialTheme.shapes.medium,
-        tonalElevation = Elevation.level(1),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
-        ) {
-            AnimatedContent(targetState = title) { title ->
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.ExtraBold,
-                )
-            }
-            Box {
-                content()
-            }
-            SimpleButton(
-                icon = actionButtonIcon,
-                text = actionButtonText,
-                onClick = onActionButtonClick,
-                modifier = Modifier.fillMaxWidth(),
+        AnimatedContent(targetState = title) { title ->
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.ExtraBold,
             )
         }
+        Box {
+            content()
+        }
+        SimpleButton(
+            icon = actionButtonIcon,
+            text = actionButtonText,
+            onClick = onActionButtonClick,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 
@@ -68,7 +60,7 @@ fun ActionCard(
 @Composable
 fun ActionCardPreview() {
     KardTheme {
-        ActionCard(
+        ActionCardContent(
             title = "Attack and Draw",
             actionButtonIcon = KardIcons.PlayArrow,
             actionButtonText = "Play",

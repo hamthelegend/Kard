@@ -6,18 +6,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.twotone.Check
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.thebrownfoxx.kard.R
 import com.thebrownfoxx.kard.logic.Player
 import com.thebrownfoxx.kard.logic.turn.TurnResult
 import com.thebrownfoxx.kard.ui.component.SimpleButton
-import com.thebrownfoxx.kard.ui.extension.Elevation
 import com.thebrownfoxx.kard.ui.theme.KardIcons
 
 @Composable
@@ -37,6 +36,7 @@ fun TurnResult(
         } else {
             stringResource(R.string.attack_attack_tie)
         }
+
         is TurnResult.AttackBlock -> stringResource(
             R.string.attack_block,
             turnResult.block.player.name,
@@ -45,6 +45,7 @@ fun TurnResult(
             turnResult.damageDealt,
             turnResult.block.player.name
         )
+
         is TurnResult.AttackHeal -> stringResource(
             R.string.attack_heal,
             turnResult.heal.player.name,
@@ -52,35 +53,32 @@ fun TurnResult(
             turnResult.attack.totalDamage,
             turnResult.heal.player.name
         )
+
         is TurnResult.BlockBlock -> stringResource(R.string.block_block)
         is TurnResult.BlockHeal -> stringResource(
             R.string.block_heal,
             turnResult.heal.player.name,
             Player.HealAmount
         )
+
         is TurnResult.HealHeal -> stringResource(R.string.heal_heal, Player.HealAmount)
     }
 
-    Surface(
-        modifier = modifier,
-        shape = MaterialTheme.shapes.medium,
-        tonalElevation = Elevation.level(1),
+    Column(
+        modifier = modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
-        ) {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            SimpleButton(
-                icon = KardIcons.Check,
-                text = stringResource(id = R.string.okay),
-                onClick = onAcknowledge,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center,
+        )
+        SimpleButton(
+            icon = KardIcons.Check,
+            text = stringResource(id = R.string.okay),
+            onClick = onAcknowledge,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
