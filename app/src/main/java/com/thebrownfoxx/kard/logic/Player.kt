@@ -27,31 +27,12 @@ data class Player(
 
     val availableTurnTypes = TurnType.values().filter { it.card in cards || it.card == null }
 
-    fun damagedBy(amount: Int) = Player(
-        id = id,
-        name = name,
-        hp = (hp - amount).normalize(0, MaxHp),
-        cards = cards,
-    )
+    fun damagedBy(amount: Int) = copy(hp = (hp - amount).normalize(0, MaxHp))
 
-    fun healedBy(amount: Int) = Player(
-        id = id,
-        name = name,
-        hp = (hp + amount).normalize(0, MaxHp),
-        cards = cards,
-    )
+    fun healedBy(amount: Int) = copy(hp = (hp + amount).normalize(0, MaxHp))
 
-    fun usedCard(card: Card?) = Player(
-        id = id,
-        name = name,
-        hp = hp,
-        cards = if (card != null) cards - card else cards,
-    ).run { if (card == null) drawnCard() else this }
+    fun usedCard(card: Card?) = copy(cards = if (card != null) cards - card else cards)
+        .run { if (card == null) drawnCard() else this }
 
-    private fun drawnCard() = Player(
-        id = id,
-        name = name,
-        hp = hp,
-        cards = cards + Card.draw(),
-    )
+    private fun drawnCard() = copy(cards = cards + Card.draw())
 }

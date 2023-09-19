@@ -36,6 +36,7 @@ fun GameWithViewModel(
             showGameOver = showGameOver,
             playerWon = playerWon,
             onGameOverAcknowledge = ::onGameOverAcknowledge,
+            onGameRestart = ::onGameRestart,
             modifier = modifier.fillMaxSize(),
         )
     }

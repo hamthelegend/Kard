@@ -2,19 +2,27 @@ package com.thebrownfoxx.kard.ui.game
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.thebrownfoxx.kard.R
 import com.thebrownfoxx.kard.logic.Player
 import com.thebrownfoxx.kard.logic.extension.CoinFace
 import com.thebrownfoxx.kard.logic.turn.Card
+import com.thebrownfoxx.kard.ui.component.RestartButton
 import com.thebrownfoxx.kard.ui.extension.Elevation
 import com.thebrownfoxx.kard.ui.game.cardselector.CardSelector
 import com.thebrownfoxx.kard.ui.game.coinflipresult.CoinFlipResult
@@ -42,15 +50,36 @@ fun Game(
     showGameOver: Boolean,
     playerWon: Boolean,
     onGameOverAcknowledge: () -> Unit,
+    onGameRestart: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
                 .padding(16.dp)
                 .systemBarsPadding(),
         ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    style = MaterialTheme.typography.displayLarge,
+                    fontWeight = FontWeight.ExtraBold,
+                )
+                Box(modifier = Modifier.weight(1f)) {
+                    RestartButton(
+                        onLongClick = onGameRestart,
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
+            }
             AiInfo(ai = ai)
             PlayerInfo(player = player)
             Surface(
@@ -123,6 +152,7 @@ fun GamePreview() {
             showGameOver = false,
             playerWon = false,
             onGameOverAcknowledge = {},
+            onGameRestart = {},
         )
     }
 }

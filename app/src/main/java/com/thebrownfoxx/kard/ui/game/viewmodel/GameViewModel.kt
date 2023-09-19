@@ -96,4 +96,9 @@ class GameViewModel : ViewModel() {
     fun onGameOverAcknowledge() {
         game = newGame
     }
+
+    fun onGameRestart() {
+        uiState = UiState.SelectingTurn(selectedCard = null)
+        game = newGame
+    }
 }
