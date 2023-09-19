@@ -85,29 +85,29 @@ class Game(playerName: String, aiName: String) {
             when (this) {
                 is TurnResult.AttackAttack -> {
                     loser?.state?.update {
-                        loser.damagedBy(damageDealt)
+                        it.damagedBy(damageDealt)
                     }
                 }
                 is TurnResult.AttackBlock -> {
                     block.player.state.update {
-                        block.player.damagedBy(damageDealt)
+                        it.damagedBy(damageDealt)
                     }
                 }
                 is TurnResult.AttackHeal -> {
                     heal.player.state.update {
-                        heal.player.damagedBy(attack.totalDamage)
+                        it.damagedBy(attack.totalDamage)
                     }
                 }
                 is TurnResult.BlockBlock -> {}
                 is TurnResult.BlockHeal -> {
                     heal.player.state.update {
-                        heal.player.healedBy(Player.HealAmount)
+                        it.healedBy(Player.HealAmount)
                     }
                 }
                 is TurnResult.HealHeal -> {
                     for (heal in listOf(heal1, heal2)) {
                         heal.player.state.update {
-                            heal.player.healedBy(Player.HealAmount)
+                            it.healedBy(Player.HealAmount)
                         }
                     }
                 }
